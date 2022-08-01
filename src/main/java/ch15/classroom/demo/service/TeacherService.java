@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TeacherService {
@@ -22,6 +21,12 @@ public class TeacherService {
 
     public Teacher findTeacher(Long id) {
         return teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    public Teacher deleteTeacher(Long id) {
+        Teacher teacher = teacherRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        teacherRepository.deleteById(id);
+        return teacher;
     }
 
     public List<Teacher> getSchoolTeachers(School school) { return teacherRepository.findAllBySchool_id(school.getId()); }

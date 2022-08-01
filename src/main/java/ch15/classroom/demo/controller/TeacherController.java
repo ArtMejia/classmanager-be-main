@@ -5,10 +5,8 @@ import ch15.classroom.demo.models.Teacher;
 import ch15.classroom.demo.service.SchoolService;
 import ch15.classroom.demo.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -42,8 +40,15 @@ public class TeacherController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Teacher> getOne(@PathVariable Long id) {
+    public ResponseEntity<Teacher> getOneById(@PathVariable Long id) {
         Teacher teacher = teacherService.findTeacher(id);
+
+        return ResponseEntity.ok(teacher);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Teacher> deleteOneById(@PathVariable Long id) {
+        Teacher teacher = teacherService.deleteTeacher(id);
 
         return ResponseEntity.ok(teacher);
     }
